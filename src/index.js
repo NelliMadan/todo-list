@@ -2,7 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+//import {idGen} from './tools';
 import reportWebVitals from './reportWebVitals';
+
+//console.log(idGen());
+
 
 ReactDOM.render(
   <React.StrictMode>
