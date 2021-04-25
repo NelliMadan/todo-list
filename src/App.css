@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+.user-name{
+  color: #61dafb;
+  
+}
+.user-surname{
+  color:blue ;
+}
