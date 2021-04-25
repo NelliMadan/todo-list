@@ -6,8 +6,8 @@ import NewTask from './NewTask';
 class ToDo extends Component{
 
     state = {
-        inputText:'',
-        tasks:[]
+        tasks:[],
+        taskIds:new Set()
     }
 
     
@@ -24,14 +24,42 @@ class ToDo extends Component{
 
     removeButtonHandler = (taskId) => ()=>{
         const newTasks = this.state.tasks.filter(({id}) => taskId !== id);
+        const newTaskIds = new Set(this.state.taskIds);
+        newTaskIds.delete(taskId);
+
         this.setState({
             tasks:newTasks,
+            taskIds:newTaskIds,
         })
         
     }
 
+    hendleCheck = (taskId)=> ()=>{
+        const taskIds = new Set(this.state.taskIds);
+        if(taskIds.has((taskId))){
+            taskIds.delete(taskId);
+        }
+        else{
+            taskIds.add(taskId)
+        }
+        this.setState({taskIds});
+    }
+
+    removeBulkHandler = ()=>{
+        let {tasks,taskIds} = this.state
+
+        taskIds.forEach(id => {
+            tasks = tasks.filter(task => task.id !== id);
+        });
+
+        this.setState({
+            tasks,
+            taskIds:new Set()
+        })
+    }
+
     render(){
-    
+        
         const tasks = this.state.tasks
         .map(({id,text})=>{
             return (
@@ -39,11 +67,8 @@ class ToDo extends Component{
                 key={id} 
                 text={text}
                 onDelete = {this.removeButtonHandler(id)}
+                onCheck = {this.hendleCheck(id)}
                 />
-              /*   <div key={task.id}>
-                    <span>{task.text}</span>
-                    <button onClick={this.removeButtonHandler(task.id)  }>X</button>
-                </div> */
             )
         })
 
@@ -56,7 +81,12 @@ class ToDo extends Component{
             </div>
             <div>
                 {tasks}
+                <button
+                onClick = {this.removeBulkHandler}
+                disabled = {!this.state.taskIds.size}
+                >Remove</button>
             </div>
+
             </>
         );
     }

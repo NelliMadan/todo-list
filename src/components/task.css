@@ -1,0 +1,6 @@
+.task-block{
+    display: inline-block;
+    margin: 20px;
+    padding: 5px;
+    border: 1px solid #000;
+}

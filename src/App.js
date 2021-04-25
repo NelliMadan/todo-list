@@ -5,14 +5,13 @@ import './App.css';
 //import Animal from './components/Animal';
 //import Input from './components/Input';
 import ToDo from './components/ToDo';
-import Counter from './components/Counter';
+//import Counter from './components/Counter';
 
 
 function App() {
   return (
     <div className="App">
       <ToDo/>
-      <Counter/>
     </div>
   );
 }
