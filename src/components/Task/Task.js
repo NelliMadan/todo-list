@@ -1,98 +1,80 @@
-import {Component} from 'react';
-import classes from './task.css';
+import React from 'react';
+import { Card, Button} from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt, faEdit} from '@fortawesome/free-solid-svg-icons';
+import EditTask from '../EditTask';
 
-class Task extends Component{
-    constructor(props){
-        super(props);
-        this.state={
-            isEdit:false,
-            editText:props.text
-        }
+export default class Task extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isEdit: false
     }
-
-    /* constructor(props){
-        super(props);
-        console.log('Task constructor');
-    }
-
-    componentDidMount(){
-        console.log('Task mounted');
-    }
+  }
 
 
+  handleEdit = () => {
+    this.setState({
+      isEdit: true
+    });
+    this.props.onEdit();
+  }
 
-    componentDidUpdate(prevProps,prevState){
-        console.log('Task updated');
-    }
- */
+  cancelEdit = () => {
+    this.setState({
+      isEdit: false,
+    });
+    this.props.onEdit();
+  }
 
+  saveEdit = (editedText) => {
+    this.props.onSaveEdit(editedText);
+    this.setState({
+      isEdit: false,
+    });
+  }
 
+  render() {
+    // console.log('Task render');
+    const { data } = this.props;
+    const { isEdit } = this.state;
 
-    /* shouldComponentUpdate(prevProps,prevState){
-        return prevProps.text !== this.props.text;
-    } */
-
-    handleEdit = ()=>{
-        this.setState({
-            isEdit:true
-        })
-    }
-
-    handleInputChange = (event)=>{
-        this.setState({
-            editText:event.target.value
-        })
-    }
-
-    cancelEdit = ()=>{
-        this.setState({
-            isEdit:false,
-            editText:this.props.text
-        })
-    }
-
-    saveEdit = ()=>{
-        this.props.onEdit(this.state.editText);
-        this.setState({isEdit:false})
-    }
-
-
-    render(){
-        const {text} = this.props;
-        const {isEdit} = this.state;
-        
-        const spanStyle = {
-            fontSize:'20px',
-            color:'maroon'
-        }
-
-        return(
-            <div className={classes.taskBlock}>
-                <input 
-                type="checkbox"
-                onChange = {this.props.onCheck}
-                />
-                {
-                    isEdit? 
-                    <input type="text" 
-                    value={this.state.editText}
-                    onChange = {this.handleInputChange}
-                    />:
-                    <span style={spanStyle}>{text}</span>
-                }
-                {
-                    isEdit?
-                    <>
-                    <button onClick = {this.saveEdit}>Save</button>
-                    <button onClick = {this.cancelEdit} >Cancel</button>
-                    </>:
-                    <>
-                    <button onClick={this.handleEdit}>edit</button>
-                    <button onClick={this.props.onDelete}>x</button>
-                    </>
-                }
-            </div>
-        );
-    }
+    return (
+      <Card>
+        <Card.Header>
+          <input
+            type="checkbox"
+            checked={this.props.isSelected}
+            onChange={this.props.onCheck}
+          />
+        </Card.Header>
+        <Card.Body>
+          <Card.Title>{data.title}</Card.Title>
+          <Card.Text>
+            {data.description}
+          </Card.Text>
+          {
+            isEdit ?
+            <EditTask
+            text = {this.props.text}
+            onCancelEdit = {this.cancelEdit}
+            onSaveEdit = {this.saveEdit}
+            />           
+            :
+              <>
+                <FontAwesomeIcon icon={faEdit} onClick={this.handleEdit} />
+                <FontAwesomeIcon icon={faTrashAlt} onClick={this.props.onDelete} />
+                <p>
+                <Button 
+                variant="primary" 
+                onClick = {this.props.onOpenModal}
+                >
+                View</Button>
+                </p>
+              </>
+          }
+        </Card.Body>
+      </Card>
+    );
+  }
 }
-export default Task;

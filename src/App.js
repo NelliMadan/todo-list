@@ -1,18 +1,13 @@
-//import logo from './logo.svg';
 import './App.css';
-//import Person from './components/Person';
-// import User from './components/User';
-//import Animal from './components/Animal';
-//import Input from './components/Input';
-import ToDo from './components/ToDo';
-//import Div from './components/HOC/Div';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import ToDo from './components/ToDoContainer/ToDo';
+
 
 
 function App() {
   return (
     <div className="App">
       <ToDo/>
-
     </div>
   );
 }

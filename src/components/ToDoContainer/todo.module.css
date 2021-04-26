@@ -1,0 +1,15 @@
+.col{
+    border:1px solid #f00;
+    height: 200px;
+}
+
+.block{
+    width: 80%;
+    height: 80%;
+    background: rebeccapurple;
+    margin: auto;
+}
+.remove{
+    margin-top: 20px;
+    margin-left: 20px;
+}
