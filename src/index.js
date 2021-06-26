@@ -2,13 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { SnackbarProvider } from 'notistack';
 
 //console.log(idGen());
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+         <SnackbarProvider maxSnack={2}>
+        <App />
+      </SnackbarProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

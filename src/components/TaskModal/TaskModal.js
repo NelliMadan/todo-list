@@ -1,8 +1,8 @@
 import React from 'react';
 import {Modal, Button} from 'react-bootstrap';
-import EditTask from '../EditTask';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt, faEdit} from '@fortawesome/free-solid-svg-icons';
+
 
 class TaskModal extends React.Component{
 state = {
@@ -10,11 +10,12 @@ state = {
 }
 
 
-handleEdit = () => {
+handleEdit = (taskData) => ()=>{
+  console.log(taskData.id);
   this.setState({
     isEdit: true
   });
-  this.props.onEdit();
+  this.props.onEdit(taskData.id);
 }
 
 saveEdit = (editedText) => {
@@ -37,7 +38,7 @@ render(){
         return (
             <Modal
             show = {this.props.show}
-            onHide = {this.state.onHide}
+            onHide = {this.props.onHide}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -48,23 +49,19 @@ render(){
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <h4>Centered Modal</h4>
+              <h4>{taskData.title}</h4>
               <p>
-                {taskData.text}
+              {taskData.description}
+            </p>
+              <p>
+              Created {taskData.created_at.slice(0,10)}
               </p>
-              {
-                this.state.isEdit ?
-                <EditTask
-              text = {taskData.text}
-              onCancelEdit = {this.cancelEdit}
-              onSaveEdit = {this.saveEdit}
-              />
-              :<>
-              <FontAwesomeIcon icon={faEdit} onClick={this.handleEdit} />
+              <p>
+                Due date {taskData.date.slice(0,10)}
+              </p>
+          
+              <FontAwesomeIcon icon={faEdit} onClick={this.handleEdit(taskData)} />
               <FontAwesomeIcon icon={faTrashAlt} onClick={this.props.onDelete} />
-              </>
-              }
-
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={this.props.onHide}>Close</Button>

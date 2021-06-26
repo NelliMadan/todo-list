@@ -13,3 +13,14 @@
     margin-top: 20px;
     margin-left: 20px;
 }
+.addButton{
+    font-size: 40px;
+    color: #fff;
+    cursor: pointer;
+    margin: auto;
+}
+.addButtondiv{
+    background-color: black;
+    padding: 10px;
+    border-radius: 50%;
+}

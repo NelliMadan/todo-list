@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {InputGroup, FormControl} from 'react-bootstrap';
+import {InputGroup} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
@@ -33,12 +33,7 @@ class EditTask extends Component{
     render(){
         return(
             <InputGroup size="sm" className="mb-3">
-            <FormControl
-             aria-label="Small" 
-             aria-describedby="inputGroup-sizing-sm" 
-             value={this.state.editText} 
-             onChange={this.handleInputChange}
-             />
+          
             <InputGroup.Append>
               <InputGroup.Text id="inputGroup-sizing-sm">
                 <FontAwesomeIcon icon={faSave} onClick={this.saveEdit} />

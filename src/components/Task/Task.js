@@ -2,79 +2,47 @@ import React from 'react';
 import { Card, Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt, faEdit} from '@fortawesome/free-solid-svg-icons';
-import EditTask from '../EditTask';
+import {formatDate} from '../../helpers/utils';
 
-export default class Task extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isEdit: false
-    }
-  }
-
-
-  handleEdit = () => {
-    this.setState({
-      isEdit: true
-    });
-    this.props.onEdit();
-  }
-
-  cancelEdit = () => {
-    this.setState({
-      isEdit: false,
-    });
-    this.props.onEdit();
-  }
-
-  saveEdit = (editedText) => {
-    this.props.onSaveEdit(editedText);
-    this.setState({
-      isEdit: false,
-    });
-  }
-
-  render() {
-    // console.log('Task render');
-    const { data } = this.props;
-    const { isEdit } = this.state;
+ function Task (props) {
+  
+    const { data } = props;
 
     return (
       <Card>
         <Card.Header>
           <input
             type="checkbox"
-            checked={this.props.isSelected}
-            onChange={this.props.onCheck}
+            checked={props.isSelected}
+            onChange={props.onCheck}
           />
+          <p>
+          {formatDate(data.date)}
+          </p>
+          <p>
+          {formatDate(data.created_at)}
+          </p>
         </Card.Header>
         <Card.Body>
-          <Card.Title>{data.title}</Card.Title>
+          <Card.Title>
+            {data.title}
+            </Card.Title>
           <Card.Text>
             {data.description}
           </Card.Text>
-          {
-            isEdit ?
-            <EditTask
-            text = {this.props.text}
-            onCancelEdit = {this.cancelEdit}
-            onSaveEdit = {this.saveEdit}
-            />           
-            :
-              <>
-                <FontAwesomeIcon icon={faEdit} onClick={this.handleEdit} />
-                <FontAwesomeIcon icon={faTrashAlt} onClick={this.props.onDelete} />
+              <FontAwesomeIcon icon={faEdit} onClick={()=>props.onEdit(data.id)} />
+                <FontAwesomeIcon icon={faTrashAlt} onClick={props.onDelete} />
                 <p>
                 <Button 
                 variant="primary" 
-                onClick = {this.props.onOpenModal}
+                onClick = {props.onOpenModal}
                 >
                 View</Button>
                 </p>
-              </>
-          }
+    
         </Card.Body>
       </Card>
     );
-  }
 }
+
+export default Task;
