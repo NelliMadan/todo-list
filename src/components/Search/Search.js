@@ -18,8 +18,6 @@ class Search extends Component{
         this.state = this.defaultState;
     }
 
-
-
     sort = [
         {
             id:'none',

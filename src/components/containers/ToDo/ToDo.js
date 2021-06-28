@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //import classes from './todo.module.css';
-import Task from '../Task/Task';
+import Task from '../../Task/Task';
 import { withSnackbar } from 'notistack';
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //import { faPlus} from '@fortawesome/free-solid-svg-icons';
@@ -10,9 +10,9 @@ import {
     Col,
     Button
 } from 'react-bootstrap';
-import TaskModal from '../TaskModal/TaskModal';
-import Modal from '../Modal';
-import Search from '../Search/Search';
+import TaskModal from '../../TaskModal/TaskModal';
+import Modal from '../../Modal';
+import Search from '../../Search/Search';
 
 class ToDo extends Component {
 

@@ -3,6 +3,7 @@ import { Card, Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt, faEdit} from '@fortawesome/free-solid-svg-icons';
 import {formatDate} from '../../helpers/utils';
+import {Link} from 'react-router-dom';
 
  function Task (props) {
   
@@ -37,7 +38,15 @@ import {formatDate} from '../../helpers/utils';
                 variant="primary" 
                 onClick = {props.onOpenModal}
                 >
-                View</Button>
+                Open in modal</Button>
+                <Link to={`/task/${data.id}`}>
+                  <Button 
+                  variant="primary" 
+                  onClick = {props.onOpenModal}
+                  >
+                  Single page</Button>
+                </Link>
+
                 </p>
     
         </Card.Body>

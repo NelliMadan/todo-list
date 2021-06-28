@@ -3,15 +3,18 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { SnackbarProvider } from 'notistack';
+import {BrowserRouter} from 'react-router-dom';
 
 //console.log(idGen());
 
 
 ReactDOM.render(
   <React.StrictMode>
-         <SnackbarProvider maxSnack={2}>
-        <App />
-      </SnackbarProvider>
+    <BrowserRouter>
+      <SnackbarProvider maxSnack={2}>
+          <App />
+        </SnackbarProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
