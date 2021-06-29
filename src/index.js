@@ -4,17 +4,20 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { SnackbarProvider } from 'notistack';
 import {BrowserRouter} from 'react-router-dom';
-
-//console.log(idGen());
+import {Provider} from 'react-redux';
+import {store} from './store';
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <Provider store = {store}>
+      <BrowserRouter>
       <SnackbarProvider maxSnack={2}>
           <App />
         </SnackbarProvider>
     </BrowserRouter>
+    </Provider>
+    
   </React.StrictMode>,
   document.getElementById('root')
 );

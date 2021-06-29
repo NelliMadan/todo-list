@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 //import classes from './todo.module.css';
 import Task from '../../Task/Task';
-import { withSnackbar } from 'notistack';
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //import { faPlus} from '@fortawesome/free-solid-svg-icons';
 import {
@@ -13,11 +12,13 @@ import {
 import TaskModal from '../../TaskModal/TaskModal';
 import Modal from '../../Modal';
 import Search from '../../Search/Search';
+//import {request} from '../../../helpers/request';
+import {connect} from 'react-redux';
+import getTasks from '../../../store/actions/getTasks';
 
 class ToDo extends Component {
 
     state = {
-        tasks: [],
         taskIds: new Set(),
         isEditing: false,
         taskIndex: null,
@@ -27,33 +28,16 @@ class ToDo extends Component {
     }
 
     componentDidMount() {
-        this.getTasks();      
+        this.props.getTasks();      
     }
 
     componentDidUpdate(prevProps){
-        if(prevProps.location.search !== this.props.location.search){
-            this.getTasks();   
-        }
-        
+        const search = this.props.location.search
+        if(prevProps.location.search !== search){
+            this.props.getTasks(search);   
+        }  
     }
 
-    getTasks = ()=>{
-        fetch(`http://localhost:3001/tasks${this.props.location.search}`, {
-            method: 'GET',
-        })
-        .then(res => res.json())
-        .then((data)=>{
-            if(data.error){
-                throw data.error;
-            }
-            this.setState({ tasks: data });
-        })
-        .catch(error => {
-            this.props.enqueueSnackbar(error.toString(), { 
-                variant: 'error',
-            });
-        });
-    }
 
     addTask = (taskData) => {
         fetch('http://localhost:3001/tasks', {
@@ -267,11 +251,11 @@ class ToDo extends Component {
 
         this.props.history.push(`/?${query}`);
         
-
     }
 
     render() {
-        const { tasks, taskIds, taskIndex } = this.state;
+        const { taskIds, taskIndex } = this.state;
+        const {tasks} = this.props;
 
         const tasksArr = tasks.map((task, index) => {
             return (
@@ -385,4 +369,14 @@ class ToDo extends Component {
     }
 }
 
-export default withSnackbar(ToDo);
+const mapStateToProps = (state)=>{
+    return {
+        tasks:state.taskReducer.tasks
+    }
+}
+
+const mapDispatchToProps = {
+    getTasks,
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(ToDo);
