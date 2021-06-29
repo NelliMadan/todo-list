@@ -72,11 +72,13 @@ class Search extends Component{
         ];
 
 
-    submitHandler = (type = 'submit')=>{
+    submitHandler = (type)=>(event)=>{
         if(type === 'reset'){
             this.props.onSumbit({});
+            this.setState(this.defaultState);
         }
-        else{
+               
+        if((!type && event.key === 'Enter') || type === 'submit'){
             const {date,filterId,sortId,search} = this.state;
             const data = {
                 search,
@@ -86,10 +88,9 @@ class Search extends Component{
                 data[filterId] = date;
             }
             this.props.onSumbit(data); 
+            this.setState(this.defaultState);
         }
-
-        this.setState(this.defaultState);
-
+    
     }
     
     inputChangeHandler = (event)=>{
@@ -125,14 +126,16 @@ class Search extends Component{
                 <FormControl
                 placeholder="Search"
                 value={search}
-                onChange={this.inputChangeHandler}/>
+                onChange={this.inputChangeHandler}
+                onKeyDown={this.submitHandler()}
+                />
 
                 <Button variant="primary"
-                onClick = {this.submitHandler}
+                onClick = {this.submitHandler('submit')}
                 >Search</Button>
 
                 <Button variant="secondary"
-                onClick = {()=>this.submitHandler('reset')}
+                onClick = {this.submitHandler('reset')}
                 >Reset</Button>
 
             </InputGroup>

@@ -1,26 +1,11 @@
-.col{
-    border:1px solid #f00;
-    height: 200px;
-}
-
-.block{
-    width: 80%;
-    height: 80%;
-    background: rebeccapurple;
+.from{
+    width: 50%;
     margin: auto;
 }
-.remove{
-    margin-top: 20px;
-    margin-left: 20px;
+.sp{
+    color: red;
+    font-size: 20px;
 }
-.addButton{
-    font-size: 40px;
-    color: #fff;
-    cursor: pointer;
-    margin: auto;
-}
-.addButtondiv{
-    background-color: black;
-    padding: 10px;
-    border-radius: 50%;
+.invalid,.invalid:focus{
+    border:1px solid red;
 }

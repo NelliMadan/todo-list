@@ -27,7 +27,18 @@ class ToDo extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:3001/tasks', {
+        this.getTasks();      
+    }
+
+    componentDidUpdate(prevProps){
+        if(prevProps.location.search !== this.props.location.search){
+            this.getTasks();   
+        }
+        
+    }
+
+    getTasks = ()=>{
+        fetch(`http://localhost:3001/tasks${this.props.location.search}`, {
             method: 'GET',
         })
         .then(res => res.json())
@@ -43,7 +54,6 @@ class ToDo extends Component {
             });
         });
     }
-
 
     addTask = (taskData) => {
         fetch('http://localhost:3001/tasks', {
@@ -250,24 +260,14 @@ class ToDo extends Component {
         let query = '';
 
         for(let key in data){
-            query+= `${key}=${data[key]}&`
+            if(data[key]){
+                query+= `${key}=${data[key]}&`;
+            }
         }
 
-        fetch(`http://localhost:3001/tasks?${query}`, {
-            method: 'GET',
-        })
-        .then(res => res.json())
-        .then((data)=>{
-            if(data.error){
-                throw data.error;
-            }
-            this.setState({ tasks: data });
-        })
-        .catch(error => {
-            this.props.enqueueSnackbar(error.toString(), { 
-                variant: 'error',
-            });
-        });
+        this.props.history.push(`/?${query}`);
+        
+
     }
 
     render() {
