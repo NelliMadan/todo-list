@@ -1,6 +1,8 @@
 import React from 'react';
 import { Modal, Button, FormControl, InputGroup, Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import addTask from '../store/actions/addTask';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 
@@ -39,7 +41,7 @@ class AddEditModal extends React.Component {
             date, 
             description
         };
-        this.props.onAddTask(taskData);
+        this.props.addTask(taskData);
     }
 
     editTask = ()=>{
@@ -125,4 +127,10 @@ AddEditModal.proptype = {
     onEditTask:PropTypes.func
 };
 
-export default AddEditModal;
+/* const mapDispatchToProps = {
+
+} */
+
+export default connect(null,{
+    addTask
+})(AddEditModal);

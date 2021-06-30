@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import classes from "./contact.module.css";
 import {Form,Button} from 'react-bootstrap';
 import {nameValidator,emailValidator} from '../../../helpers/validator';
-import { withSnackbar } from 'notistack';
+import contact from '../../../store/actions/contact';
+import {connect} from 'react-redux';
 
 class Contact extends Component {
 
@@ -19,25 +20,7 @@ class Contact extends Component {
             email, 
             message
         };
-        console.log(contactData);
-        fetch(`http://localhost:3001/contact`, {
-            method: 'POST',
-            body: JSON.stringify(contactData),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .then(response => {
-            this.props.enqueueSnackbar('contact send success', { 
-                variant: 'success',
-            });
-        })
-        .catch(error => {
-            this.props.enqueueSnackbar(error.toString(), { 
-                variant: 'error',
-            });
-        });
+        this.props.contact(contactData)
         this.setState({
             name:'',
             email:'',
@@ -101,4 +84,9 @@ class Contact extends Component {
     }
 }
 
-export default withSnackbar(Contact);
+const mapDispatchtoProps = {
+    contact,
+}
+
+
+export default connect(null,mapDispatchtoProps)(Contact);

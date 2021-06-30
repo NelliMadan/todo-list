@@ -1,8 +1,10 @@
 import  { Component } from 'react';
 import classes from './singleTask.module.css';
-import { withSnackbar } from 'notistack';
 import { Button,Card } from 'react-bootstrap';
 import {formatDate} from '../../../helpers/utils';
+import {connect} from 'react-redux';
+import  singelTask from '../../../store/actions/singleTask';
+import  deleteSingleTask from '../../../store/actions/deleteTask';
 
 class SingleTask extends Component {
 
@@ -11,49 +13,20 @@ class SingleTask extends Component {
     }
 
     componentDidMount(){
-        fetch(`http://localhost:3001/tasks/${this.props.match.params.id}`, {
-            method: 'GET',
-        })
-        .then(res => res.json())
-        .then((data)=>{
-            if(data.error){
-                throw data.error;
-            }
-            this.setState({ task: data });
-        })
-        .catch(error => {
-            this.props.enqueueSnackbar(error.toString(), { 
-                variant: 'error',
-            });
-        });   
+        const taskId = this.props.match.params.id;
+        this.props.singelTask(taskId)
     }
 
     deleteTask = ()=>{
         const taskId = this.props.match.params.id;
         console.log(taskId);
-
-        fetch(`http://localhost:3001/tasks/${taskId}`, {
-            method: 'Delete',
-        })
-        .then(res => res.json())
-        .then(response => {
-            if(response.error){
-                throw response.error;
-            }
-            this.props.history.push('/');  
-        })
-        .catch(error => {
-            this.props.enqueueSnackbar(error.toString(), { 
-                variant: 'error',
-            });
-        });
-
+        this.props.deleteSingleTask(taskId);
+        this.props.history.push('/'); 
     };
 
     render() {
       
-        console.log(this.state);
-        const {task} = this.state;
+        const task = this.props.singleTaskData;
 
         return (
             <>
@@ -93,4 +66,15 @@ class SingleTask extends Component {
     }
 }
 
-export default withSnackbar(SingleTask);
+const mapStateToProps=(state)=>{
+    return{
+        singleTaskData:state.taskReducer.singleTaskData
+    }
+}
+
+const mapDispatchtoProps={
+    singelTask,
+    deleteSingleTask
+}
+
+export default connect(mapStateToProps,mapDispatchtoProps)(SingleTask);

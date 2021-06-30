@@ -72,7 +72,7 @@ class Search extends Component{
         ];
 
 
-    submitHandler = (type)=>(event)=>{
+    submitHandler = (type) => (event)=>{
         if(type === 'reset'){
             this.props.onSumbit({});
             this.setState(this.defaultState);
@@ -80,9 +80,10 @@ class Search extends Component{
                
         if((!type && event.key === 'Enter') || type === 'submit'){
             const {date,filterId,sortId,search} = this.state;
+            
             const data = {
                 search,
-                sort:sortId
+                sort:sortId,
             };
             if(filterId && date){
                 data[filterId] = date;
@@ -90,29 +91,23 @@ class Search extends Component{
             this.props.onSumbit(data); 
             this.setState(this.defaultState);
         }
-    
     }
     
     inputChangeHandler = (event)=>{
         this.setState({search:event.target.value});
     }
 
-    selectHandler = (type,id,title)=>(event)=>{
-        if(id === 'none'){
-            this.setState({
-                [type + 'Id']:'',
-                [type + 'Title']:''
-            });
-        }
-        else{
-            this.setState({
-                [type + 'Id']:id,
-                [type + 'Title']:title
-            });
-        }
+    selectHandler = (type,id,title)=>()=>{
+        if (id === 'none') {
+            this.setState({ [type + 'Id']: '', [type + 'Title']: '' });
+          }
+          else {
+            this.setState({ [type + 'Id']: id, [type + 'Title']: title });
+          }
     }
 
     dateChangeHandler = (event)=>{
+    console.log(event.target.value);
         this.setState({date:event.target.value});
     }
 
