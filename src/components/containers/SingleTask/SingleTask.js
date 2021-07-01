@@ -1,4 +1,4 @@
-import  { Component } from 'react';
+import  {useEffect} from 'react';
 import classes from './singleTask.module.css';
 import { Button,Card } from 'react-bootstrap';
 import {formatDate} from '../../../helpers/utils';
@@ -6,27 +6,23 @@ import {connect} from 'react-redux';
 import  singelTask from '../../../store/actions/singleTask';
 import  deleteSingleTask from '../../../store/actions/deleteTask';
 
-class SingleTask extends Component {
+function SingleTask (props) {
 
-    state = {
-        task:null
-    }
 
-    componentDidMount(){
-        const taskId = this.props.match.params.id;
-        this.props.singelTask(taskId)
-    }
+    useEffect(()=>{
+        const taskId = props.match.params.id;
+        props.singelTask(taskId);
+    },[]);
 
-    deleteTask = ()=>{
-        const taskId = this.props.match.params.id;
+    const deleteTask = ()=>{
+        const taskId = props.match.params.id;
         console.log(taskId);
-        this.props.deleteSingleTask(taskId);
-        this.props.history.push('/'); 
+        props.deleteSingleTask(taskId);
+        props.history.push('/'); 
     };
 
-    render() {
-      
-        const task = this.props.singleTaskData;
+
+        const task = props.singleTaskData;
 
         return (
             <>
@@ -53,7 +49,7 @@ class SingleTask extends Component {
                     </Card>
                     <Button
                     variant="danger"
-                    onClick = {this.deleteTask}
+                    onClick = {deleteTask}
                     disabled = {!task}
                     >
                         Delete task
@@ -63,7 +59,7 @@ class SingleTask extends Component {
              }
             </>
         );
-    }
+    
 }
 
 const mapStateToProps=(state)=>{

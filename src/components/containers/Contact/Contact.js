@@ -1,42 +1,34 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import classes from "./contact.module.css";
 import {Form,Button} from 'react-bootstrap';
 import {nameValidator,emailValidator} from '../../../helpers/validator';
 import contact from '../../../store/actions/contact';
 import {connect} from 'react-redux';
 
-class Contact extends Component {
+function Contact (props){
 
-    state = {
-        name:'',
-        email:'',
-        message:''
-    }
 
-    submitHandler = ()=>{
-        const {name,email,message} = this.state;
+    const [name,setNameValue] = useState('');
+    const [email,setEmailValue] = useState('');
+    const [message,setMessageValue] = useState('');
+
+    const submitHandler = ()=>{
+      
         const contactData = {
             name, 
             email, 
             message
         };
-        this.props.contact(contactData)
-        this.setState({
-            name:'',
-            email:'',
-            message:''
-        })
+
+        props.contact(contactData)
+
+        setNameValue('');
+        setEmailValue('');
+        setMessageValue('');
     }
 
-    inputChangeHandler = (type)=> (event)=> {
-        this.setState({
-            [type]:event.target.value
-        });
+
         
-    }
-    render() {
-        
-        const {name,email,message} = this.state;
         const isNameValid = nameValidator(name);
         const isEmailValid = emailValidator(email);
 
@@ -51,7 +43,9 @@ class Contact extends Component {
                     className={!isNameValid ? classes.invalid : ''} 
                     type="text"
                     placeholder="name" 
-                    onChange={this.inputChangeHandler('name')}
+                    onChange={(event)=>{
+                        setNameValue(event.target.value)
+                    }}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -61,7 +55,9 @@ class Contact extends Component {
                     className={!isEmailValid ? classes.invalid : ''} 
                     type="email" 
                     placeholder="name@example.com" 
-                    onChange={this.inputChangeHandler('email')}
+                    onChange={(event)=>{
+                        setEmailValue(event.target.value);
+                    }}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
@@ -70,18 +66,20 @@ class Contact extends Component {
                     value={message}
                     as="textarea" 
                     rows={3} 
-                    onChange={this.inputChangeHandler('message')}
+                    onChange={(event)=>{
+                        setMessageValue(event.target.value);
+                    }}
                     />
                 </Form.Group>
                 <Button 
                 variant="outline-primary"
-                onClick={this.submitHandler}
+                onClick={submitHandler}
                 disabled = {!(isNameValid && isEmailValid)}
                 >Submit</Button>
                 </Form> 
             </>
             );
-    }
+    
 }
 
 const mapDispatchtoProps = {

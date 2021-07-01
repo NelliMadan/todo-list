@@ -170,4 +170,5 @@ class Search extends Component{
 Search.proptype = {
     onSumbit:PropTypes.func.isRequired
 };
+
 export default Search;
