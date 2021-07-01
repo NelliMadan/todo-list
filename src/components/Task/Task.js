@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt, faEdit} from '@fortawesome/free-solid-svg-icons';
 import {formatDate} from '../../helpers/utils';
 import {Link} from 'react-router-dom';
+import PropTypes  from 'prop-types';
 
  function Task (props) {
   
@@ -52,6 +53,15 @@ import {Link} from 'react-router-dom';
         </Card.Body>
       </Card>
     );
+}
+
+Task.propTypes = {
+    data:PropTypes.object.isRequired,
+    onDelete:PropTypes.func.isRequired,
+    onCheck:PropTypes.func.isRequired,
+    onEdit:PropTypes.func.isRequired,
+    isSelected:PropTypes.bool.isRequired,
+    onOpenModal:PropTypes.func.isRequired
 }
 
 export default Task;

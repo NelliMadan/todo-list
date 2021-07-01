@@ -127,10 +127,6 @@ AddEditModal.proptype = {
     onEditTask:PropTypes.func
 };
 
-/* const mapDispatchToProps = {
-
-} */
-
 export default connect(null,{
     addTask
 })(AddEditModal);

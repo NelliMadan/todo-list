@@ -4,6 +4,7 @@ import {Form,Button} from 'react-bootstrap';
 import {nameValidator,emailValidator} from '../../../helpers/validator';
 import contact from '../../../store/actions/contact';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 function Contact (props){
 
@@ -80,6 +81,10 @@ function Contact (props){
             </>
             );
     
+}
+
+Contact.propTypes = {
+    contact:PropTypes.func.isRequired
 }
 
 const mapDispatchtoProps = {

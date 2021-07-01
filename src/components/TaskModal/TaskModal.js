@@ -2,7 +2,7 @@ import React from 'react';
 import {Modal, Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt, faEdit} from '@fortawesome/free-solid-svg-icons';
-
+import PropTypes from 'prop-types';
 
 function TaskModal (props){
 
@@ -47,8 +47,15 @@ const handleEdit = (taskData) => ()=>{
             </Modal.Footer>
           </Modal>
         );
+}
 
-
+TaskModal.propTypes = {
+  show:PropTypes.bool.isRequired,
+  onHide:PropTypes.func.isRequired,
+  taskData:PropTypes.object.isRequired,
+  onDelete:PropTypes.func.isRequired,
+  onSaveEdit:PropTypes.func.isRequired,
+  onEdit:PropTypes.func.isRequired
 }
 
 export default TaskModal;

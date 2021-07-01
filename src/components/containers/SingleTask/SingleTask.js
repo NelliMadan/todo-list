@@ -5,6 +5,7 @@ import {formatDate} from '../../../helpers/utils';
 import {connect} from 'react-redux';
 import  singelTask from '../../../store/actions/singleTask';
 import  deleteSingleTask from '../../../store/actions/deleteTask';
+import PropTypes from 'prop-types';
 
 function SingleTask (props) {
 
@@ -60,6 +61,12 @@ function SingleTask (props) {
             </>
         );
     
+}
+
+SingleTask.propTypes = {
+    singleTaskData:PropTypes.object.isRequired,
+    deleteSingleTask:PropTypes.func.isRequired,
+    singelTask:PropTypes.func.isRequired,
 }
 
 const mapStateToProps=(state)=>{
