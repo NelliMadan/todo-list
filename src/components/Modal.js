@@ -65,6 +65,7 @@ class AddEditModal extends React.Component {
             <>
 
                 <Modal
+                    style={{color:'gray',fontFamily: 'Nanum Myeongjo, serif'}}
                     show={this.props.open}
                     onHide={this.props.onHide}
                     size="lg"
@@ -73,11 +74,11 @@ class AddEditModal extends React.Component {
                 >
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                        {this.props.type === 'add' ?`Add new Task` : `Edit task`}
+                        {this.props.type === 'add' ?`Add new Task` : `Edit task`} 
                 </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <InputGroup>
+                        <InputGroup >
                             <FormControl
                                 placeholder="title"
                                 value={title}
@@ -85,7 +86,7 @@ class AddEditModal extends React.Component {
                             />
                         </InputGroup>
                         <Form.Group controlId="exampleForm.ControlTextarea1">
-                            <Form.Label>description</Form.Label>
+                            <Form.Label>Description</Form.Label>
                             <Form.Control 
                             as="textarea" 
                             rows={3}
@@ -93,24 +94,29 @@ class AddEditModal extends React.Component {
                             onChange={this.onChangeHandler('description')}
                              />
                         </Form.Group>
-                        <input type="date"
+                        <input
+                        style={{
+                            borderRadius:'7px',
+                            border:'1px solid gray'
+                        }} 
+                         type="date"
                          value={date.slice(0,10)}
                          onChange={this.onChangeHandler('date')}
                         />
                     </Modal.Body>
                     <Modal.Footer>
                        {this.props.type === 'add'?
-                        <Button variant="primary" 
+                        <Button variant="outline-info" 
                         onClick={this.addTask}
                         disabled={!title}
                         >Add</Button>:
-                        <Button variant="primary" 
+                        <Button variant="outline-info" 
                         onClick={this.editTask}
                         disabled={!title}
                         >Save</Button>
                         }
 
-                        <Button onClick={this.props.onHide}>Cancel</Button>
+                        <Button onClick={this.props.onHide} variant="outline-danger">Cancel</Button>
                     </Modal.Footer>
                 </Modal>
             </>

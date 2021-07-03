@@ -1,7 +1,8 @@
 import {Component} from 'react';
-import {Button,InputGroup,FormControl,SplitButton,Dropdown} from 'react-bootstrap';
+import {Button,InputGroup,FormControl,SplitButton,Dropdown,Navbar,Nav} from 'react-bootstrap';
 import classes from './search.module.css';
 import  PropTypes  from 'prop-types';
+
 
 class Search extends Component{
 
@@ -116,52 +117,68 @@ class Search extends Component{
 
         return(
             <>
-            <InputGroup>
                 
-                <FormControl
-                placeholder="Search"
-                value={search}
-                onChange={this.inputChangeHandler}
-                onKeyDown={this.submitHandler()}
-                />
+                <Navbar >
+                    <Nav className="mr-auto">
+                        <SplitButton
+                            variant='primary'
+                            title={sortTitle || 'Sort'}
+                        >
+                            {this.sort.map(({ id, title }) =>
+                                <Dropdown.Item
+                                    key={id}
+                                    onClick={this.selectHandler('sort', id, title)}
+                                    className={`${sortId === id ? classes.active : ''} ${classes.sortItem}`}
+                                >
+                                    {title}
+                                </Dropdown.Item>)
+                            }
+                        </SplitButton>
 
-                <Button variant="primary"
-                onClick = {this.submitHandler('submit')}
-                >Search</Button>
 
-                <Button variant="secondary"
-                onClick = {this.submitHandler('reset')}
-                >Reset</Button>
+                        <SplitButton
+                            style = {{margin:'0 15px'}}
+                            variant='primary'
+                            title={filterTitle || 'Filter'}
+                        >
+                            {this.filter.map(({ id, title }) =>
+                                <Dropdown.Item
+                                    key={id}
+                                    onClick={this.selectHandler('filter', id, title)}
+                                    className={`${filterId === id ? classes.active : ''} ${classes.sortItem}`}
+                                >
+                                    {title}
+                                </Dropdown.Item>)
+                            }
+                        </SplitButton>
+                        <input className={classes.searchData} type="date" value={date} onChange={this.dateChangeHandler} />
+                        
+                    </Nav>
+                    <FormControl
+                        style={{ maxWidth: '400px' }}
+                        placeholder="Search task"
+                        aria-label="Search task"
+                        aria-describedby="basic-addon2"
+                        value={search}
+                        onChange={this.inputChangeHandler}
+                        onKeyDown={this.submitHandler()}
+                    />
+                    <InputGroup.Append>
+                    <Button
+                        variant="outline-primary"
+                        onClick={this.submitHandler('submit')}
 
-            </InputGroup>
-            <SplitButton
-                    variant='primary'
-                    title={sortTitle || 'sort'}
+                    >
+                        Search
+                </Button>
+                <Button
+                    variant="outline-secondary"
+                    onClick={this.submitHandler('reset')}
                 >
-                {
-                    this.sort.map(({id,title}) => 
-                    <Dropdown.Item 
-                    key={id}
-                    onClick = {this.selectHandler('sort',id,title)}
-                    className = {`${sortId === id ? classes.active : ''} ${classes.sortItem}`}
-                    >{title}</Dropdown.Item>)
-                }
-                </SplitButton>
-                <SplitButton
-                    variant='primary'
-                    title={filterTitle || 'filter'}
-                >
-                {
-                    this.filter.map(({id,title}) => 
-                    <Dropdown.Item 
-                    key={id}
-                    onClick = {this.selectHandler('filter',id,title)}
-                    className = {`${filterId === id ? classes.active : ''} ${classes.sortItem}`}
-                    >{title}</Dropdown.Item>
-                    )
-                }
-                </SplitButton>
-                <input type="date" value = {date} onChange = {this.dateChangeHandler}/>
+                    Reset
+                </Button>
+                    </InputGroup.Append>
+                </Navbar>
             </>
         );
     }

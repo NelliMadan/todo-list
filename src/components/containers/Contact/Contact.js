@@ -38,8 +38,9 @@ function Contact (props){
                 <h1 className={classes.heading}>Contact us page </h1>
                 <Form className={classes.from}>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Your name <span className={classes.sp}>*</span></Form.Label>
+                    <Form.Label className={classes.label}>Your name <span className={classes.sp}>*</span></Form.Label>
                     <Form.Control
+                    style={{padding:'20px'}}
                     value={name}
                     className={!isNameValid ? classes.invalid : ''} 
                     type="text"
@@ -50,8 +51,9 @@ function Contact (props){
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Email address <span className={classes.sp}>*</span></Form.Label>
+                    <Form.Label className={classes.label}>Email address <span className={classes.sp}>*</span></Form.Label>
                     <Form.Control 
+                    style={{padding:'23px'}}
                     value={email}
                     className={!isEmailValid ? classes.invalid : ''} 
                     type="email" 
@@ -62,18 +64,19 @@ function Contact (props){
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                    <Form.Label>Your message</Form.Label>
+                    <Form.Label className={classes.label}>Your message</Form.Label>
                     <Form.Control 
                     value={message}
                     as="textarea" 
-                    rows={3} 
+                    rows={8} 
                     onChange={(event)=>{
                         setMessageValue(event.target.value);
                     }}
                     />
                 </Form.Group>
                 <Button 
-                variant="outline-primary"
+                className={classes.subButton}
+                variant="primary"
                 onClick={submitHandler}
                 disabled = {!(isNameValid && isEmailValid)}
                 >Submit</Button>

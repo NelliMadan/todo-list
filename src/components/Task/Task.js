@@ -1,4 +1,5 @@
 import React from 'react';
+import classes from './task.module.css';
 import { Card, Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt, faEdit} from '@fortawesome/free-solid-svg-icons';
@@ -11,47 +12,52 @@ import PropTypes  from 'prop-types';
     const { data } = props;
 
     return (
-      <Card>
+      <>
+      <Card className={classes.card}>
         <Card.Header>
-          <input
-            type="checkbox"
-            checked={props.isSelected}
-            onChange={props.onCheck}
-          />
-          <p>
-          {formatDate(data.date)}
-          </p>
-          <p>
-          {formatDate(data.created_at)}
-          </p>
-        </Card.Header>
+          <div style={{display:'flex',justifyContent:'space-between'}}>
+            <div>
+            <input
+          type="checkbox"
+          checked={props.isSelected}
+          onChange={props.onCheck}
+        />
+          <h4>{data.title}</h4>
+            </div>
+            <div>
+          <FontAwesomeIcon className={classes.icons}  icon={faEdit} onClick={()=>props.onEdit(data.id)} />
+          <FontAwesomeIcon className={classes.icons}   icon={faTrashAlt} onClick={props.onDelete} />
+            </div>
+          </div>
+
+
+          </Card.Header>
         <Card.Body>
-          <Card.Title>
-            {data.title}
-            </Card.Title>
-          <Card.Text>
-            {data.description}
-          </Card.Text>
-              <FontAwesomeIcon icon={faEdit} onClick={()=>props.onEdit(data.id)} />
-                <FontAwesomeIcon icon={faTrashAlt} onClick={props.onDelete} />
-                <p>
+          <Card.Title style={{display:'flex',justifyContent:'space-between'}}> {data.description}   
+                <div>
                 <Button 
-                variant="primary" 
+                variant="outline-primary" 
                 onClick = {props.onOpenModal}
+                style={{marginRight:'15px'}}
                 >
                 Open in modal</Button>
                 <Link to={`/task/${data.id}`}>
                   <Button 
-                  variant="primary" 
+                  variant="outline-primary" 
                   onClick = {props.onOpenModal}
                   >
                   Single page</Button>
                 </Link>
-
-                </p>
-    
+              </div>
+                </Card.Title>
+          <Card.Text>
+          <span>{formatDate(data.date)}  (data)</span>   
+          <br/>
+          <span> {formatDate(data.created_at)}  (created_at)</span> 
+          </Card.Text>
         </Card.Body>
       </Card>
+      </>
     );
 }
 

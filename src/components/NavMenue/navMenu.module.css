@@ -1,11 +1,19 @@
 .ul>li{
-    display: inline-block;
+    
     list-style-type: none;
-    text-align: left;
-    margin: 10px;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 20px;
+ 
+}
+
+.navlink{
+    color:rgb(49, 49, 49);
+}
+.navlink:hover{
+    color:rgb(179, 120, 190);
 }
 .active{
-    color: blueviolet;
+    color: #a729a7;
+}
+.dropdown{
+    font-size: 20px;
 }

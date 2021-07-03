@@ -1,4 +1,4 @@
-import React from 'react';
+import classes from './taskModal.module.css'; 
 import {Modal, Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt, faEdit} from '@fortawesome/free-solid-svg-icons';
@@ -16,6 +16,7 @@ const handleEdit = (taskData) => ()=>{
 
         return (
             <Modal
+            style={{fontFamily: 'Nanum Myeongjo, serif'}}
             show = {props.show}
             onHide = {props.onHide}
             size="lg"
@@ -39,11 +40,11 @@ const handleEdit = (taskData) => ()=>{
                 Due date {taskData.date.slice(0,10)}
               </p>
           
-              <FontAwesomeIcon icon={faEdit} onClick={handleEdit(taskData)} />
-              <FontAwesomeIcon icon={faTrashAlt} onClick={props.onDelete} />
+              <FontAwesomeIcon className={classes.editIcons} icon={faEdit} onClick={handleEdit(taskData)} />
+              <FontAwesomeIcon className={classes.editIcons} icon={faTrashAlt} onClick={props.onDelete} />
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={props.onHide}>Close</Button>
+              <Button onClick={props.onHide} variant="outline-info">Close</Button>
             </Modal.Footer>
           </Modal>
         );

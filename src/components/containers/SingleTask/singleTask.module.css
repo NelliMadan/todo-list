@@ -1,0 +1,16 @@
+.singTaskTitle{
+    font-size: 25px;
+    margin-bottom: 30px;
+}
+.singleTaskText{
+    font-size: 20px;
+}
+.singleTaskButton{
+    margin-top: 20px;
+    padding: 10px 20px;
+}
+.heading{
+    font-family: 'Dancing Script', cursive;
+    font-size: 60px; 
+    margin-bottom: 60px
+}

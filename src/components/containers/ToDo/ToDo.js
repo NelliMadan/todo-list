@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-//import classes from './todo.module.css';
+import classes from './todo.module.css';
 import Task from '../../Task/Task';
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-//import { faPlus} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus} from '@fortawesome/free-solid-svg-icons';
 import {
     Container,
     Row,
     Col,
-    Button
+    Button,
 } from 'react-bootstrap';
 import TaskModal from '../../TaskModal/TaskModal';
 import Modal from '../../Modal';
@@ -18,6 +18,7 @@ import addTask from '../../../store/actions/addTask';
 import editTask from '../../../store/actions/editTask';
 import deleteTask from '../../../store/actions/deleteTask';
 import deleteBulkTask from '../../../store/actions/deleteBulkTasks';
+import NoTasks from '../../NoTasks';
 
 
 class ToDo extends Component {
@@ -144,8 +145,9 @@ class ToDo extends Component {
 
         const tasksArr = tasks.map((task, index) => {
             return (
-                <Col key={task.id} sm='6' md='4' lg='3' xl='2' >
+                <Col key={task.id} /* sm='6' md='4' lg='3' xl='2' */ >
                     <Task
+                        key={task.id}
                         data={task}
                         onDelete={this.removeButtonHandler(task.id)}
                         onCheck={this.handleCheck(task.id)}
@@ -161,29 +163,20 @@ class ToDo extends Component {
         );
 
         return (
-            <>
+            <div className={classes.todoContainer}>
                 <Container>
-                    
-                    <Button
-                        className='mx-auto'
-                        variant='primary'
-                        onClick={this.toggleTaskModal('Add')}
-                    >
-                        Add task
-                    </Button>
                     <Search 
                     onSumbit = {this.searchTasks}
                     />
 
-                    <Row>
-                        {tasksArr.length ? tasksArr : <p>There are no tasks yet</p>}
-                    </Row>
-
+                        {tasksArr.length ? tasksArr : <NoTasks/>}
+                    
                     <Row>
                         <Button
                             className='mx-auto'
                             variant='danger'
                             onClick={this.removeBulkHandler}
+                            style={{borderRadius:'8px',marginBottom:'20px'}}
                             disabled={!taskIds.size}
                         >
                             Remove
@@ -192,7 +185,8 @@ class ToDo extends Component {
                             tasks.length !== taskIds.size &&
                             <Button
                                 className='mx-auto'
-                                variant='secondary'
+                                style={{borderRadius:'8px',marginBottom:'20px'}}
+                                variant='primary'
                                 onClick={this.selectAllHandler}
                             >
                                 Select all
@@ -203,14 +197,13 @@ class ToDo extends Component {
                         {!!taskIds.size &&
                             <Button
                                 className='mx-auto'
-                                variant='secondary'
+                                style={{borderRadius:'8px',marginBottom:'20px'}}
+                                variant='primary'
                                 onClick={this.deSelectAllHandler}
                             >
                                 Deselect all
                          </Button>
                         }
-
-
 
                     </Row>
                 </Container>
@@ -238,16 +231,20 @@ class ToDo extends Component {
                     onEditTask = {this.editTask}
                 />
                
-                       
-                    {/* <span className = {classes.addButtondiv}>
-                    <FontAwesomeIcon 
-                    className = {classes.addButton}
-                    icon={faPlus} onClick={this.toggleTaskModal('Add')} />
-                    </span> */}
-                   
-                     
+                    <div>
+                        <div className={classes.footer}>
+                            <Button variant="outline-primary"
+                             className={classes.addTask}
+                             onClick={this.toggleTaskModal('Add')}
+                            >  <FontAwesomeIcon 
+                            className = {classes.addButton}
+                            icon={faPlus} onClick={this.toggleTaskModal('Add')} /></Button>
+                  
+                        </div>
+                    </div>
                     
-            </>
+                             
+            </div>
         );
     }
 }

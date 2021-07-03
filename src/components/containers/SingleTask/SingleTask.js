@@ -28,34 +28,38 @@ function SingleTask (props) {
         return (
             <>
             {task  &&
-                <>
+                <div style={{height:'93.7vh'}}>
+                    <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
                     <h1 className={classes.heading}>Single task page</h1>
-                    <Card style={{ width: '25rem', margin: '25px auto ' }}>
+                    <Card style={{ width: '30rem', margin: '25px auto ' }}>
                         <Card.Header>
 
                         </Card.Header>
                         <Card.Body>
-                            <Card.Title>{task.title}</Card.Title>
-                            <Card.Text>
+                            <Card.Title className={classes.singTaskTitle}>{task.title}</Card.Title>
+                            <Card.Text className={classes.singleTaskText}>
                                 {task.description}
                             </Card.Text>
                             <Card.Text className={classes.date}>
-                            Creation date {formatDate(task.created_at)}
+                           {formatDate(task.created_at)}   (Creation date)
                             </Card.Text>
                             <Card.Text className={classes.date}>
-                            Creation date {formatDate(task.date)}
+                            {formatDate(task.date)}    (data)
                             </Card.Text>
 
                         </Card.Body>
+                        
                     </Card>
                     <Button
+                    className={classes.singleTaskButton}
                     variant="danger"
                     onClick = {deleteTask}
                     disabled = {!task}
                     >
                         Delete task
-                </Button>
-                </>
+                    </Button>
+                    </div>
+                </div>
 
              }
             </>

@@ -1,6 +1,14 @@
-.taskBlock{
-    display: inline-block;
-    margin: 20px;
-    padding: 15px;
-    border: 1px solid #000;
+.card{
+    border-radius: 8px;
+    margin: 50px 0;
+}
+span{
+    color: rgb(155, 153, 153);
+    font-size: 15px;
+    margin-right: 10px;
+}
+.icons{
+    font-size: 20px;
+    margin-left: 15px;
+    cursor: pointer;
 }

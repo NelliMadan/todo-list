@@ -1,3 +1,9 @@
 .heading{
-    
+    text-align: center;  
+    font-family: 'Dancing Script', cursive;
+    font-size: 60px; 
+    margin-bottom: 60px;
+}
+.aboutDiv{
+    height: 93.7vh;
 }

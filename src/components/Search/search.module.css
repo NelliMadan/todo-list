@@ -4,3 +4,10 @@
 .sortItem:hover{
     background-color: #1282fa;
 }
+.searchData{
+    border-radius: 7px;
+    border:none
+}
+.searchData:focus{
+    outline: none;
+}
