@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import classes from './navMenu.module.css';
 import {NavLink,withRouter} from 'react-router-dom';
 import {NavDropdown} from 'react-bootstrap';

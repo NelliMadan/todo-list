@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import  singelTask from '../../../store/actions/singleTask';
 import  deleteSingleTask from '../../../store/actions/deleteTask';
 import PropTypes from 'prop-types';
+import {upperCase} from '../../../helpers/utils';
 
 function SingleTask (props) {
 
@@ -17,15 +18,20 @@ function SingleTask (props) {
 
     const deleteTask = ()=>{
         const taskId = props.match.params.id;
-        console.log(taskId);
         props.deleteSingleTask(taskId);
         props.history.push('/'); 
     };
 
 
-        const task = props.singleTaskData;
+        const task = props.singleTaskData;  
+        let title,description; 
 
-        return (
+        if(task !== null){
+            title = upperCase(task.title);
+            description = upperCase(task.description);
+        } 
+
+        return (    
             <>
             {task  &&
                 <div style={{height:'93.7vh'}}>
@@ -36,9 +42,9 @@ function SingleTask (props) {
 
                         </Card.Header>
                         <Card.Body>
-                            <Card.Title className={classes.singTaskTitle}>{task.title}</Card.Title>
+                            <Card.Title className={classes.singTaskTitle}>{title}</Card.Title>
                             <Card.Text className={classes.singleTaskText}>
-                                {task.description}
+                                {description}
                             </Card.Text>
                             <Card.Text className={classes.date}>
                            {formatDate(task.created_at)}   (Creation date)
@@ -50,14 +56,26 @@ function SingleTask (props) {
                         </Card.Body>
                         
                     </Card>
-                    <Button
+                    <div style={{display:'flex'}}>
+                       <Button
                     className={classes.singleTaskButton}
                     variant="danger"
                     onClick = {deleteTask}
                     disabled = {!task}
                     >
-                        Delete task
+                        Delete 
                     </Button>
+                    <Button
+                    className={classes.singleTaskButton}
+                    variant="primary"
+                    onClick = {()=>{
+                        props.history.push('/'); 
+                    }}
+                    >
+                    Back
+                    </Button> 
+                    </div>
+                    
                     </div>
                 </div>
 

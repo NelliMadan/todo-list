@@ -101,14 +101,13 @@ class Search extends Component{
     selectHandler = (type,id,title)=>()=>{
         if (id === 'none') {
             this.setState({ [type + 'Id']: '', [type + 'Title']: '' });
-          }
-          else {
-            this.setState({ [type + 'Id']: id, [type + 'Title']: title });
-          }
+        }
+        else {
+        this.setState({ [type + 'Id']: id, [type + 'Title']: title });
+        }
     }
 
     dateChangeHandler = (event)=>{
-    console.log(event.target.value);
         this.setState({date:event.target.value});
     }
 

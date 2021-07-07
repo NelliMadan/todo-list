@@ -6,10 +6,14 @@ import { faTrashAlt, faEdit} from '@fortawesome/free-solid-svg-icons';
 import {formatDate} from '../../helpers/utils';
 import {Link} from 'react-router-dom';
 import PropTypes  from 'prop-types';
+import {upperCase} from '../../helpers/utils';
 
  function Task (props) {
   
     const { data } = props;
+    let title = upperCase(data.title),
+        description = upperCase(data.description);
+  
 
     return (
       <>
@@ -22,7 +26,7 @@ import PropTypes  from 'prop-types';
           checked={props.isSelected}
           onChange={props.onCheck}
         />
-          <h4>{data.title}</h4>
+          <h4>{title}</h4>
             </div>
             <div>
           <FontAwesomeIcon className={classes.icons}  icon={faEdit} onClick={()=>props.onEdit(data.id)} />
@@ -33,7 +37,7 @@ import PropTypes  from 'prop-types';
 
           </Card.Header>
         <Card.Body>
-          <Card.Title style={{display:'flex',justifyContent:'space-between'}}> {data.description}   
+          <Card.Title style={{display:'flex',justifyContent:'space-between'}}> {description}   
                 <div>
                 <Button 
                 variant="outline-primary" 
@@ -51,9 +55,9 @@ import PropTypes  from 'prop-types';
               </div>
                 </Card.Title>
           <Card.Text>
-          <span>{formatDate(data.date)}  (data)</span>   
+          <span className={classes.data}>{formatDate(data.date)}  (data)</span>   
           <br/>
-          <span> {formatDate(data.created_at)}  (created_at)</span> 
+          <span className={classes.data}> {formatDate(data.created_at)}  (created_at)</span> 
           </Card.Text>
         </Card.Body>
       </Card>

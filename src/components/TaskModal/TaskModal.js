@@ -3,6 +3,7 @@ import {Modal, Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt, faEdit} from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
+import {upperCase} from '../../helpers/utils';
 
 function TaskModal (props){
 
@@ -12,7 +13,9 @@ const handleEdit = (taskData) => ()=>{
 }
 
 
-  const {taskData} = props;
+  const {taskData} = props,
+       title = upperCase(taskData.title),
+       description = upperCase(taskData.description);
 
         return (
             <Modal
@@ -29,9 +32,9 @@ const handleEdit = (taskData) => ()=>{
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <h4>{taskData.title}</h4>
+              <h4>{title}</h4>
               <p>
-              {taskData.description}
+              {description}
             </p>
               <p>
               Created {taskData.created_at.slice(0,10)}

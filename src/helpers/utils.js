@@ -5,3 +5,8 @@ export function idGen(){
 export function formatDate(date){
     return date? date.slice(0,10):'';
 }
+
+export function upperCase(str) {
+    str = str.charAt(0).toUpperCase() + str.slice(1);
+    return str;
+}

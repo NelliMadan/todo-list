@@ -48,6 +48,10 @@ class ToDo extends Component {
 
 
     removeButtonHandler = (taskId) => () => {
+        let r = window.confirm(
+            "Are you sure you want to delete this task? " 
+        );
+        if (r !== true) return;
         this.setState({
             taskIndex: null
         });
@@ -145,7 +149,7 @@ class ToDo extends Component {
 
         const tasksArr = tasks.map((task, index) => {
             return (
-                <Col key={task.id} /* sm='6' md='4' lg='3' xl='2' */ >
+                <Col key={task.id}  >
                     <Task
                         key={task.id}
                         data={task}

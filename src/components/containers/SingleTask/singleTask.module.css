@@ -6,7 +6,7 @@
     font-size: 20px;
 }
 .singleTaskButton{
-    margin-top: 20px;
+    margin: 20px 40px 0 30px ;
     padding: 10px 20px;
 }
 .heading{
@@ -14,3 +14,9 @@
     font-size: 60px; 
     margin-bottom: 60px
 }
+.date{
+    color: rgb(155, 153, 153);
+    font-size: 15px;
+    margin-right: 10px;
+}
+

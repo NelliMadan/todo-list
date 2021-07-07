@@ -6,7 +6,7 @@ const defaultState = {
     error:null,
     success:null,
     addTaskSucces:false,
-    singleTaskData:{},
+    singleTaskData:null,
 };
 
 export default function taskReducer(state = defaultState,action) {

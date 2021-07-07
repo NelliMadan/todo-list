@@ -3,8 +3,7 @@ import { Modal, Button, FormControl, InputGroup, Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import addTask from '../store/actions/addTask';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
+ 
 
 class AddEditModal extends React.Component {
     constructor(props){
@@ -19,7 +18,7 @@ class AddEditModal extends React.Component {
         this.state = this.initialState;
     }
         
-    componentDidUpdate(prevProps,prevState){
+    componentDidUpdate(prevProps){
         if(prevProps.open && !this.props.open){
             this.setState(this.initialState);    
         }
