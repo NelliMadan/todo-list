@@ -29,6 +29,7 @@ class App extends Component{
       return;
     }
   }
+  console.log('here');
 
   render(){
     
