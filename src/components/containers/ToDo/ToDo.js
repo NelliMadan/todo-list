@@ -19,6 +19,7 @@ import editTask from '../../../store/actions/editTask';
 import deleteTask from '../../../store/actions/deleteTask';
 import deleteBulkTask from '../../../store/actions/deleteBulkTasks';
 import NoTasks from '../../NoTasks';
+import {get} from '../../../helpers/request';
 
 
 class ToDo extends Component {
@@ -29,7 +30,8 @@ class ToDo extends Component {
         taskIndex: null,
         editTaskIndex: null,
         showAddTaskModal: false,
-        showEditTaskModal: false
+        showEditTaskModal: false,
+        data:null,
     }
 
     componentDidMount() {
@@ -91,6 +93,28 @@ class ToDo extends Component {
         this.setState({ tasks, isEditing: false });
     }
 
+    handleGetData = () => {
+        fetch("https://cdn.cur.su/api/latest.json", {
+            method: 'GET',
+        })
+        .then(res => res.json())
+        .then((data)=>{
+            if(data.error){
+                throw data.error;
+            }
+            console.log(data);
+            this.setState({
+                data:data
+            });
+        })
+        .catch(error => {
+            // this.props.enqueueSnackbar(error.toString(), { 
+            //     variant: 'error',
+            // });
+        });
+    }   
+
+    
     handleEdit = (taskId) => {
         this.setState({
             showEditTaskModal: true,
@@ -144,7 +168,7 @@ class ToDo extends Component {
     }
 
     render() {
-        const { taskIds, taskIndex } = this.state;
+        const { taskIds, taskIndex,data } = this.state;
         const {tasks} = this.props;
 
         const tasksArr = tasks.map((task, index) => {
@@ -168,6 +192,15 @@ class ToDo extends Component {
 
         return (
             <div className={classes.todoContainer}>
+                <button
+                onClick={this.handleGetData}
+                >
+                    click
+                </button>
+
+                <div>
+                    {data && data.rates.AED};
+                </div>
                 <Container>
                     <Search 
                     onSumbit = {this.searchTasks}

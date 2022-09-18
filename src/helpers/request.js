@@ -17,8 +17,8 @@ function getParams(data) {
     }
 }
 
-function get(url){
-    return fetch(mainUrl+url, {
+export function get(url){
+    return fetch(url, {
         method: 'GET',
     })
     .then(checkStatus);
